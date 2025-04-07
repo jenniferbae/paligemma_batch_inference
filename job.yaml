@@ -2,21 +2,15 @@
 
 name: image-caption-batch-job
 
-runtime_env:
-  image_uri: anyscale/ray:2.44.1-slim-py312-cu128
-  working_dir: git+https://github.com/jenniferbae/paligemma_batch_inference.git
-  env_vars:
-    HF_TOKEN: ${HF_TOKEN}
-  pip:
-    - "ray[data]>=2.44.1"
-    - "transformers>=4.36.0"
-    - "accelerate>=0.25.0"
-    - "torch>=2.1.0"
-    - "huggingface-hub>=0.19.0"
-    - "fsspec>=2023.9.0"
-    - "Pillow>=10.0.0"
-    - "numpy>=1.24.0"
-    - "requests>=2.31.0"
+# Use a custom Docker image with all required packages pre-installed
+image_uri: anyscale/image/image-batch:1
+
+# Set environment variables
+env_vars:
+  HF_TOKEN: ${HF_TOKEN}
+
+# Use Git repository as working directory
+working_dir: git+https://github.com/jenniferbae/paligemma_batch_inference.git
 
 entrypoint: python main.py
 
