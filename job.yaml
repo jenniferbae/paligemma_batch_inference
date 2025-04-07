@@ -2,19 +2,11 @@
 
 name: image-caption-batch-job
 
-# Use Anyscale's base image
-image_uri: anyscale/ray:2.44.1-slim-py312-cu128
-
-# Set environment variables
-# Note: HF_TOKEN will be set when running the job
-env_vars:
-  HF_TOKEN: ${HF_TOKEN}
-
-# Use Git repository as working directory
-working_dir: git+https://github.com/jenniferbae/paligemma_batch_inference.git
-
-# Specify required packages
 runtime_env:
+  image_uri: anyscale/ray:2.44.1-slim-py312-cu128
+  working_dir: git+https://github.com/jenniferbae/paligemma_batch_inference.git
+  env_vars:
+    HF_TOKEN: ${HF_TOKEN}
   pip:
     - "ray[data]>=2.44.1"
     - "transformers>=4.36.0"
